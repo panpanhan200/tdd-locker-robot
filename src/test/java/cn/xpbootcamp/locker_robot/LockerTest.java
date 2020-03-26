@@ -2,8 +2,7 @@ package cn.xpbootcamp.locker_robot;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class LockerTest {
@@ -32,5 +31,79 @@ public class LockerTest {
         Exception exception = assertThrows(RuntimeException.class, () ->
                 locker.setCapacity(newCapacity));
         assertEquals("Set locker capacity failed", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_when_requesting_deposition_given_locker_initialized_and_available() {
+        Locker locker = new Locker(15);
+
+        Ticket ticket = locker.deposit();
+        assertDoesNotThrow(locker::deposit);
+        assertTrue(ticket.boxId.isPresent());
+    }
+
+    @Test
+    void should_return_ticket_when_requesting_deposition_given_locker_initialized_but_not_available() {
+        Locker locker = new Locker(1);
+        locker.deposit();
+
+        Exception exception = assertThrows(RuntimeException.class, locker::deposit);
+        assertEquals("Locker is full", exception.getMessage());
+    }
+
+    @Test
+    void should_return_withdraw_successfully_when_withdraw_with_ticket_given_ticket_valid() {
+        Locker locker = new Locker(15);
+        Ticket ticket = locker.deposit();
+        assertTrue(ticket.boxId.isPresent());
+
+        assertDoesNotThrow(() -> locker.withdraw(ticket));
+    }
+
+    @Test
+    void should_return_ticket_invalid_when_withdraw_with_ticket_given_ticket_invalid() {
+        Locker locker = new Locker(15);
+        Ticket ticket = new Ticket();
+        assertFalse(ticket.boxId.isPresent());
+
+        Exception exception = assertThrows(RuntimeException.class, () ->
+                locker.withdraw(ticket));
+        assertEquals("Ticket is invalid", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_invalid_when_withdraw_with_ticket_given_ticket_invalid_2() {
+        Locker locker = new Locker(15);
+        Ticket ticket = new Ticket();
+        ticket.assignId(16);
+
+        Exception exception = assertThrows(RuntimeException.class, () ->
+                locker.withdraw(ticket));
+        assertEquals("Ticket is invalid", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_invalid_when_withdraw_with_ticket_given_ticket_invalid_3() {
+        Locker locker = new Locker(15);
+        Ticket ticket = new Ticket();
+        ticket.assignId(-1);
+
+        Exception exception = assertThrows(RuntimeException.class, () ->
+                locker.withdraw(ticket));
+        assertEquals("Ticket is invalid", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_invalid_when_withdraw_with_ticket_given_ticket_invalid_4() {
+        Locker locker = new Locker(15);
+        Ticket invalidTicket = new Ticket();
+        invalidTicket.assignId(7);
+
+        Exception exception = assertThrows(RuntimeException.class, () ->
+                locker.withdraw(invalidTicket));
+        assertEquals("Ticket is invalid", exception.getMessage());
+
+        Ticket validTicket = locker.deposit();
+        assertDoesNotThrow(() -> locker.withdraw(validTicket));
     }
 }

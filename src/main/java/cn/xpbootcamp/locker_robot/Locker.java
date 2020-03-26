@@ -16,9 +16,30 @@ public class Locker {
         }
     }
 
-    public void deposit() {
+    public Ticket deposit() {
         Optional<Box> targetBox = boxes.stream().filter(box -> !box.isOccupied).findFirst();
-        targetBox.ifPresent(box -> box.isOccupied = true);
+        Ticket ticket = new Ticket();
+        targetBox.ifPresent(box -> {
+            box.isOccupied = true;
+            ticket.assignId(this.boxes.indexOf(box));
+        });
+
+        if (!targetBox.isPresent()) {
+            throw new RuntimeException("Locker is full");
+        }
+        return ticket;
+    }
+
+    public void withdraw(Ticket ticket) {
+
+        if (isValidTicket(ticket)) {
+            throw new RuntimeException("Ticket is invalid");
+        }
+    }
+
+    private boolean isValidTicket(Ticket ticket) {
+        return !ticket.boxId.isPresent() || ticket.boxId.get() >= boxes.size() ||
+                ticket.boxId.get() < 0 || !boxes.get(ticket.boxId.get()).isOccupied;
     }
 
     public void setCapacity(int capacity) {
