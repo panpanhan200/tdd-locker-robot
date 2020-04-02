@@ -17,10 +17,9 @@ public class Locker {
     }
 
     public Ticket deposit(Bag bag) {
-        Optional<Box> targetBox = boxes.stream().filter(box -> !box.isOccupied).findFirst();
+        Optional<Box> targetBox = boxes.stream().filter(box -> !box.isOccupied()).findFirst();
         Ticket ticket = new Ticket();
         targetBox.ifPresent(box -> {
-            box.isOccupied = true;
             box.bag = Optional.of(bag);
             ticket.assignId(this.boxes.indexOf(box));
         });
@@ -36,7 +35,6 @@ public class Locker {
             throw new RuntimeException("Ticket is invalid");
         }
 
-        boxes.get(ticket.boxId.get()).isOccupied = false;
         Bag bag = boxes.get(ticket.boxId.get()).bag.get();
         boxes.get(ticket.boxId.get()).bag = Optional.empty();
         return bag;
@@ -44,11 +42,11 @@ public class Locker {
 
     private boolean isValidTicket(Ticket ticket) {
         return !ticket.boxId.isPresent() || ticket.boxId.get() >= boxes.size() ||
-                ticket.boxId.get() < 0 || !boxes.get(ticket.boxId.get()).isOccupied;
+                ticket.boxId.get() < 0 || !boxes.get(ticket.boxId.get()).isOccupied();
     }
 
     public void setCapacity(int capacity) {
-        boolean isLockerInUse = boxes.stream().anyMatch(box -> box.isOccupied);
+        boolean isLockerInUse = boxes.stream().anyMatch(box -> box.isOccupied());
         if (isLockerInUse) {
             throw new RuntimeException("Set locker capacity failed");
         }
