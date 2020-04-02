@@ -35,8 +35,9 @@ public class Locker {
             throw new RuntimeException("Ticket is invalid");
         }
 
-        Bag bag = boxes.get(ticket.boxId.get()).bag.get();
-        boxes.get(ticket.boxId.get()).bag = Optional.empty();
+        final Box box = boxes.get(ticket.boxId.get());
+        Bag bag = box.bag.get();
+        box.bag = Optional.empty();
         return bag;
     }
 
