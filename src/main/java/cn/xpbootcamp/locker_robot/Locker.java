@@ -31,10 +31,11 @@ public class Locker {
     }
 
     public void withdraw(Ticket ticket) {
-
         if (isValidTicket(ticket)) {
             throw new RuntimeException("Ticket is invalid");
         }
+
+        boxes.get(ticket.boxId.get()).isOccupied = false;
     }
 
     private boolean isValidTicket(Ticket ticket) {

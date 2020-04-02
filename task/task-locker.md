@@ -62,7 +62,7 @@ Then 返回取包成功消息
 
 ### AC2
 
-Given Locker系统已经初始化并成功运行，且票据不合法
+Given Locker系统已经初始化并成功运行，且票据是已经取过包的
 
 When 在 Locker 系统中发起取包请求
 
