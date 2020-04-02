@@ -27,7 +27,7 @@ public class Robot {
         if (ticket.lockerId.isPresent()) {
             return lockerList.get(ticket.lockerId.get()).withdraw(ticket);
         } else {
-            throw new RuntimeException("Invalid ticket");
+            throw new RuntimeException("Ticket is invalid");
         }
     }
 }
