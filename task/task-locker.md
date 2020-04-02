@@ -58,7 +58,7 @@ Given Locker系统已经初始化并成功运行，且票据合法
 
 When 在 Locker 系统中发起取包请求
 
-Then 返回取包成功消息
+Then 成功返回包
 
 ### AC2
 

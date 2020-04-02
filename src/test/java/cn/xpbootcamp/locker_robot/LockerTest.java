@@ -27,7 +27,8 @@ public class LockerTest {
         int newCapacity = 50;
         int oldCapacity = 15;
         Locker locker = new Locker(oldCapacity);
-        locker.deposit();
+        Bag bag = new Bag();
+        locker.deposit(bag);
         Exception exception = assertThrows(RuntimeException.class, () ->
                 locker.setCapacity(newCapacity));
         assertEquals("Set locker capacity failed", exception.getMessage());
@@ -37,34 +38,37 @@ public class LockerTest {
     void should_return_ticket_when_requesting_deposition_given_locker_initialized_and_available() {
         Locker locker = new Locker(15);
 
-        Ticket ticket = locker.deposit();
-        assertDoesNotThrow(locker::deposit);
-        assertTrue(ticket.boxId.isPresent());
+        Bag bag = new Bag();
+        Ticket ticket = locker.deposit(bag);
+        assertNotNull(ticket);
     }
 
     @Test
     void should_return_ticket_when_requesting_deposition_given_locker_initialized_but_not_available() {
         Locker locker = new Locker(1);
-        locker.deposit();
+        Bag bag = new Bag();
+        locker.deposit(bag);
 
-        Exception exception = assertThrows(RuntimeException.class, locker::deposit);
+        Exception exception = assertThrows(RuntimeException.class, () -> locker.deposit(bag));
         assertEquals("Locker is full", exception.getMessage());
     }
 
     @Test
-    void should_return_withdraw_successfully_when_withdraw_with_ticket_given_ticket_valid() {
+    void should_return_bag_when_withdraw_with_ticket_given_ticket_valid() {
         Locker locker = new Locker(15);
-        Ticket ticket = locker.deposit();
-        assertTrue(ticket.boxId.isPresent());
+        Bag bag = new Bag();
+        Ticket ticket = locker.deposit(bag);
 
-        assertDoesNotThrow(() -> locker.withdraw(ticket));
+        Bag returnedBag = locker.withdraw(ticket);
+        assertEquals(bag, returnedBag);
     }
 
     @Test
     void should_return_ticket_invalid_message_when_withdraw_with_ticket_given_ticket_has_been_used() {
         Locker locker = new Locker(15);
 
-        Ticket ticket = locker.deposit();
+        Bag bag = new Bag();
+        Ticket ticket = locker.deposit(bag);
         locker.withdraw(ticket);
 
         Exception exception = assertThrows(RuntimeException.class, () ->

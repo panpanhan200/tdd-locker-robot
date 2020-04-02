@@ -16,11 +16,12 @@ public class Locker {
         }
     }
 
-    public Ticket deposit() {
+    public Ticket deposit(Bag bag) {
         Optional<Box> targetBox = boxes.stream().filter(box -> !box.isOccupied).findFirst();
         Ticket ticket = new Ticket();
         targetBox.ifPresent(box -> {
             box.isOccupied = true;
+            box.bag = Optional.of(bag);
             ticket.assignId(this.boxes.indexOf(box));
         });
 
@@ -30,12 +31,15 @@ public class Locker {
         return ticket;
     }
 
-    public void withdraw(Ticket ticket) {
+    public Bag withdraw(Ticket ticket) {
         if (isValidTicket(ticket)) {
             throw new RuntimeException("Ticket is invalid");
         }
 
         boxes.get(ticket.boxId.get()).isOccupied = false;
+        Bag bag = boxes.get(ticket.boxId.get()).bag.get();
+        boxes.get(ticket.boxId.get()).bag = Optional.empty();
+        return bag;
     }
 
     private boolean isValidTicket(Ticket ticket) {
