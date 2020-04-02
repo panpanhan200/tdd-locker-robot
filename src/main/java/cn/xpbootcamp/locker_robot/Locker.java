@@ -47,7 +47,7 @@ public class Locker {
     }
 
     public void setCapacity(int capacity) {
-        boolean isLockerInUse = boxes.stream().anyMatch(box -> box.isOccupied());
+        boolean isLockerInUse = boxes.stream().anyMatch(Box::isOccupied);
         if (isLockerInUse) {
             throw new RuntimeException("Set locker capacity failed");
         }
@@ -56,5 +56,13 @@ public class Locker {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public boolean hasBag(Bag bag) {
+        return boxes.stream().anyMatch(box -> box.bag.map(value -> value.equals(bag)).orElse(false));
+    }
+
+    public boolean isFull() {
+        return boxes.stream().allMatch(box -> box.isOccupied());
     }
 }
