@@ -21,7 +21,7 @@ public class Locker {
         Ticket ticket = new Ticket();
         targetBox.ifPresent(box -> {
             box.bag = Optional.of(bag);
-            ticket.assignId(this.boxes.indexOf(box));
+            ticket.setBoxId(this.boxes.indexOf(box));
         });
 
         if (!targetBox.isPresent()) {

@@ -69,4 +69,18 @@ public class PrimaryLockerRobotTest {
         assertEquals("No available locker", exception.getMessage());
     }
 
+    @Test
+    void should_return_bag_when_withdraw_with_ticket_given_a_locker_with_deposited_bag_and_ticket_valid() {
+        List<Locker> lockerList = new ArrayList<Locker>();
+        Locker lockerA = new Locker(1);
+        lockerList.add(lockerA);
+        Robot robot = new Robot(lockerList);
+
+        Bag bag = new Bag();
+        Ticket ticket = robot.deposit(bag);
+
+        Bag returnedBag = robot.withdraw(ticket);
+        assertEquals(bag, returnedBag);
+    }
+
 }

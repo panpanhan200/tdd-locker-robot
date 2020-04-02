@@ -14,9 +14,20 @@ public class Robot {
 
         Optional<Locker> notFullLocker = lockerList.stream().filter(locker -> !locker.isFull()).findFirst();
         if (notFullLocker.isPresent()) {
-            return notFullLocker.get().deposit(bag);
+            Ticket ticket = notFullLocker.get().deposit(bag);
+            ticket.setLockerId(lockerList.indexOf(notFullLocker.get()));
+            return ticket;
         } else {
             throw new RuntimeException("No available locker");
+        }
+    }
+
+    public Bag withdraw(Ticket ticket) {
+
+        if (ticket.lockerId.isPresent()) {
+            return lockerList.get(ticket.lockerId.get()).withdraw(ticket);
+        } else {
+            throw new RuntimeException("Invalid ticket");
         }
     }
 }

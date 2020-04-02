@@ -4,6 +4,7 @@ import java.util.Optional;
 
 public class Ticket {
 public Optional<Integer> boxId;
+public Optional<Integer> lockerId;
 
     public Ticket() {
         this.boxId = Optional.empty();
@@ -13,7 +14,11 @@ public Optional<Integer> boxId;
         this.boxId = Optional.of(id);
     }
 
-    public void assignId(int id) {
+    public void setBoxId(int id) {
         this.boxId = Optional.of(id);
+    }
+
+    public void setLockerId(int id) {
+        this.lockerId = Optional.of(id);
     }
 }
