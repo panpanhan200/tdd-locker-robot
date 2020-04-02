@@ -16,7 +16,7 @@ public class Robot {
         if (notFullLocker.isPresent()) {
             return notFullLocker.get().deposit(bag);
         } else {
-            throw new RuntimeException("Locker is full");
+            throw new RuntimeException("No available locker");
         }
     }
 }
