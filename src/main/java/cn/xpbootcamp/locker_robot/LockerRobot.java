@@ -3,12 +3,12 @@ package cn.xpbootcamp.locker_robot;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Robot {
+public abstract class LockerRobot {
     protected List<Locker> lockerList;
 
     abstract Optional<Locker> findLocker();
 
-    public Robot(List<Locker> lockerList) {
+    public LockerRobot(List<Locker> lockerList) {
         this.lockerList = lockerList;
     }
 

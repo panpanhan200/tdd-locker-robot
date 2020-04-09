@@ -3,8 +3,8 @@ package cn.xpbootcamp.locker_robot;
 import java.util.List;
 import java.util.Optional;
 
-public class PrimaryRobot extends Robot {
-    public PrimaryRobot(List<Locker> lockerList) {
+public class PrimaryLockerRobot extends LockerRobot {
+    public PrimaryLockerRobot(List<Locker> lockerList) {
         super(lockerList);
     }
 
