@@ -71,4 +71,18 @@ public class SmartLockerRobotTest {
         Bag returnedBag = robot.withdraw(ticket);
         assertEquals(bag, returnedBag);
     }
+
+    @Test
+    void should_withdraw_failed_when_withdraw_with_ticket_given_ticket_used() {
+        List<Locker> lockerList = new ArrayList<>();
+        Locker lockerA = new Locker(1);
+        lockerList.add(lockerA);
+        SmartLockerRobot robot = new SmartLockerRobot(lockerList);
+
+        Bag bag = new Bag();
+        Ticket ticket = robot.deposit(bag);
+        robot.withdraw(ticket);
+
+        assertThrows(TicketInvalidException.class, () -> robot.withdraw(ticket));
+    }
 }

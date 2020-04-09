@@ -82,7 +82,7 @@ public class PrimaryLockerRobotTest {
     }
 
     @Test
-    void should_return_bag_when_withdraw_with_ticket_given_ticket_used() {
+    void should_withdraw_failed_when_withdraw_with_ticket_given_ticket_used() {
         List<Locker> lockerList = new ArrayList<>();
         Locker lockerA = new Locker(1);
         lockerList.add(lockerA);
