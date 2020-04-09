@@ -23,4 +23,19 @@ public class SmartLockerRobotTest {
         assertNotNull(ticket);
         assertTrue(lockerB.hasBag(bag));
     }
+
+    @Test
+    void should_return_ticket_when_robot_receives_one_bag_given_locker_A_with_1_empty_box_and_locker_B_with_1_empty_box() {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        List<Locker> lockers = new ArrayList<>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+
+        SmartLockerRobot robot = new SmartLockerRobot(lockers);
+        Bag bag = new Bag();
+        Ticket ticket = robot.deposit(bag);
+
+        assertNotNull(ticket);
+    }
 }
