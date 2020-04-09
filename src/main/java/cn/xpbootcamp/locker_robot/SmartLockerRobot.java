@@ -13,6 +13,7 @@ public class SmartLockerRobot extends LockerRobot {
 
     @Override
     Optional<Locker> findLocker() {
-        return lockerList.stream().max(comparator);
+        Optional<Locker> targetLocker = lockerList.stream().max(comparator);
+        return targetLocker.get().getEmptyBoxCount() == 0 ? Optional.empty() : targetLocker;
     }
 }

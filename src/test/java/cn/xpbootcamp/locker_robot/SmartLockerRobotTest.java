@@ -38,4 +38,23 @@ public class SmartLockerRobotTest {
 
         assertNotNull(ticket);
     }
+
+    @Test
+    void should_deposit_failed_when_robot_receives_one_bag_given_locker_A_with_0_empty_box_and_locker_B_with_0_empty_box() {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        List<Locker> lockers = new ArrayList<>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+
+        SmartLockerRobot robot = new SmartLockerRobot(lockers);
+
+        Bag bagA = new Bag();
+        Bag bagB = new Bag();
+        robot.deposit(bagA);
+        robot.deposit(bagB);
+
+        Bag bag = new Bag();
+        assertThrows(LockerUnavailableException.class, () -> robot.deposit(bag));
+    }
 }
