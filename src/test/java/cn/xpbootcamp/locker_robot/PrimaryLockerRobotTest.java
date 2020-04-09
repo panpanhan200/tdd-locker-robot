@@ -64,9 +64,7 @@ public class PrimaryLockerRobotTest {
         Robot robot = new Robot(lockerList);
 
         Bag bag = new Bag();
-        Exception exception = assertThrows(RuntimeException.class, () ->
-                robot.deposit(bag));
-        assertEquals("No available locker", exception.getMessage());
+        assertThrows(LockerUnavailableException.class, () -> robot.deposit(bag));
     }
 
     @Test

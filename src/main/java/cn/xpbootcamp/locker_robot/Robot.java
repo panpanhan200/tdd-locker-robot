@@ -18,7 +18,7 @@ public class Robot {
             ticket.setLockerId(lockerList.indexOf(notFullLocker.get()));
             return ticket;
         } else {
-            throw new RuntimeException("No available locker");
+            throw new LockerUnavailableException();
         }
     }
 
