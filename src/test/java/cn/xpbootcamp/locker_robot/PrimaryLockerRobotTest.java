@@ -92,9 +92,7 @@ public class PrimaryLockerRobotTest {
         Ticket ticket = robot.deposit(bag);
         robot.withdraw(ticket);
 
-        Exception exception = assertThrows(RuntimeException.class, () ->
-                robot.withdraw(ticket));
-        assertEquals("Ticket is invalid", exception.getMessage());
+        assertThrows(TicketInvalidException.class, () -> robot.withdraw(ticket));
     }
 
 }

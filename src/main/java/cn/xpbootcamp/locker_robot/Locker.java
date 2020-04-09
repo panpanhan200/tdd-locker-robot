@@ -32,7 +32,7 @@ public class Locker {
 
     public Bag withdraw(Ticket ticket) {
         if (isValidTicket(ticket)) {
-            throw new RuntimeException("Ticket is invalid");
+            throw new TicketInvalidException();
         }
 
         final Box box = boxes.get(ticket.boxId.get());

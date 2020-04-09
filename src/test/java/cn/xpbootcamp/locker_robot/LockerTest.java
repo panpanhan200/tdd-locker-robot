@@ -71,8 +71,6 @@ public class LockerTest {
         Ticket ticket = locker.deposit(bag);
         locker.withdraw(ticket);
 
-        Exception exception = assertThrows(RuntimeException.class, () ->
-                locker.withdraw(ticket));
-        assertEquals("Ticket is invalid", exception.getMessage());
+        assertThrows(TicketInvalidException.class, () -> locker.withdraw(ticket));
     }
 }
