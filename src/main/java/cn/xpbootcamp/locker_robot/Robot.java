@@ -3,8 +3,10 @@ package cn.xpbootcamp.locker_robot;
 import java.util.List;
 import java.util.Optional;
 
-public class Robot {
-    private List<Locker> lockerList;
+public abstract class Robot {
+    protected List<Locker> lockerList;
+
+    abstract Optional<Locker> findLocker();
 
     public Robot(List<Locker> lockerList) {
         this.lockerList = lockerList;
@@ -12,10 +14,11 @@ public class Robot {
 
     public Ticket deposit(Bag bag) {
 
-        Optional<Locker> notFullLocker = lockerList.stream().filter(locker -> !locker.isFull()).findFirst();
+        Optional<Locker> notFullLocker = findLocker();
         if (notFullLocker.isPresent()) {
-            Ticket ticket = notFullLocker.get().deposit(bag);
-            ticket.setLockerId(lockerList.indexOf(notFullLocker.get()));
+            Locker locker = notFullLocker.get();
+            Ticket ticket = locker.deposit(bag);
+            ticket.setLockerId(lockerList.indexOf(locker));
             return ticket;
         } else {
             throw new LockerUnavailableException();

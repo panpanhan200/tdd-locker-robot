@@ -18,7 +18,7 @@ public class PrimaryLockerRobotTest {
         lockerList.add(lockerA);
         lockerList.add(lockerB);
 
-        Robot robot = new Robot(lockerList);
+        Robot robot = new PrimaryRobot(lockerList);
 
         Bag bag = new Bag();
         Ticket ticket = robot.deposit(bag);
@@ -38,7 +38,7 @@ public class PrimaryLockerRobotTest {
         Bag bagIgnored = new Bag();
         lockerA.deposit(bagIgnored);
 
-        Robot robot = new Robot(lockerList);
+        Robot robot = new PrimaryRobot(lockerList);
 
         Bag bag = new Bag();
         Ticket ticket = robot.deposit(bag);
@@ -61,7 +61,7 @@ public class PrimaryLockerRobotTest {
         Bag bagB = new Bag();
         lockerB.deposit(bagB);
 
-        Robot robot = new Robot(lockerList);
+        Robot robot = new PrimaryRobot(lockerList);
 
         Bag bag = new Bag();
         assertThrows(LockerUnavailableException.class, () -> robot.deposit(bag));
@@ -72,7 +72,7 @@ public class PrimaryLockerRobotTest {
         List<Locker> lockerList = new ArrayList<>();
         Locker lockerA = new Locker(1);
         lockerList.add(lockerA);
-        Robot robot = new Robot(lockerList);
+        Robot robot = new PrimaryRobot(lockerList);
 
         Bag bag = new Bag();
         Ticket ticket = robot.deposit(bag);
@@ -86,7 +86,7 @@ public class PrimaryLockerRobotTest {
         List<Locker> lockerList = new ArrayList<>();
         Locker lockerA = new Locker(1);
         lockerList.add(lockerA);
-        Robot robot = new Robot(lockerList);
+        Robot robot = new PrimaryRobot(lockerList);
 
         Bag bag = new Bag();
         Ticket ticket = robot.deposit(bag);
