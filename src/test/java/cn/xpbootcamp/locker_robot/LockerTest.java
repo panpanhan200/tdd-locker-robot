@@ -29,9 +29,7 @@ public class LockerTest {
         Locker locker = new Locker(oldCapacity);
         Bag bag = new Bag();
         locker.deposit(bag);
-        Exception exception = assertThrows(RuntimeException.class, () ->
-                locker.setCapacity(newCapacity));
-        assertEquals("Set locker capacity failed", exception.getMessage());
+        assertThrows(LockerInUseException.class, () -> locker.setCapacity(newCapacity));
     }
 
     @Test

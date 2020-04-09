@@ -49,7 +49,7 @@ public class Locker {
     public void setCapacity(int capacity) {
         boolean isLockerInUse = boxes.stream().anyMatch(Box::isOccupied);
         if (isLockerInUse) {
-            throw new RuntimeException("Set locker capacity failed");
+            throw new LockerInUseException();
         }
         this.capacity = capacity;
     }
