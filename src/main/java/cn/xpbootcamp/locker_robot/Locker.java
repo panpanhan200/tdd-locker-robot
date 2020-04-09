@@ -65,4 +65,8 @@ public class Locker {
     public boolean isFull() {
         return boxes.stream().allMatch(box -> box.isOccupied());
     }
+
+    public long getEmptyBoxCount() {
+        return boxes.stream().filter(box -> !box.isOccupied()).count();
+    }
 }
