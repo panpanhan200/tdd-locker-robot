@@ -25,7 +25,7 @@ public class Locker {
         });
 
         if (!targetBox.isPresent()) {
-            throw new RuntimeException("Locker is full");
+            throw new LockerFullException();
         }
         return ticket;
     }

@@ -47,8 +47,7 @@ public class LockerTest {
         Bag bag = new Bag();
         locker.deposit(bag);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> locker.deposit(bag));
-        assertEquals("Locker is full", exception.getMessage());
+        assertThrows(LockerFullException.class, () -> locker.deposit(bag));
     }
 
     @Test
