@@ -69,4 +69,8 @@ public class Locker {
     public long getEmptyBoxCount() {
         return boxes.stream().filter(box -> !box.isOccupied()).count();
     }
+
+    public long getVacancyRate() {
+        return boxes.stream().filter(box -> !box.isOccupied()).count() / boxes.size();
+    }
 }
