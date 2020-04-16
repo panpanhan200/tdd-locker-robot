@@ -89,4 +89,39 @@ public class SuperLockerRobotTest {
         Bag bag = new Bag();
         assertThrows(LockerUnavailableException.class, () -> robot.deposit(bag));
     }
+
+    @Test
+    void should_return_bag1_when_withdraw_with_ticket_given_bag2_is_deposited_in_lockerB_and_ticket_is_returned_after_bag1_is_deposited_in_lockerA() {
+        List<Locker> lockerList = new ArrayList<>();
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+        lockerList.add(lockerA);
+        lockerList.add(lockerB);
+        SmartLockerRobot robot = new SmartLockerRobot(lockerList);
+
+        Bag bag1 = new Bag();
+        Ticket ticket = robot.deposit(bag1);
+        Bag bag2 = new Bag();
+        robot.deposit(bag2);
+
+        assertTrue(lockerA.hasBag(bag1));
+        assertTrue(lockerB.hasBag(bag2));
+
+        Bag returnedBag = robot.withdraw(ticket);
+        assertEquals(bag1, returnedBag);
+    }
+
+    @Test
+    void should_withdraw_failed_when_withdraw_with_ticket_given_ticket_used() {
+        List<Locker> lockerList = new ArrayList<>();
+        Locker lockerA = new Locker(1);
+        lockerList.add(lockerA);
+        SmartLockerRobot robot = new SmartLockerRobot(lockerList);
+
+        Bag bag = new Bag();
+        Ticket ticket = robot.deposit(bag);
+        robot.withdraw(ticket);
+
+        assertThrows(TicketInvalidException.class, () -> robot.withdraw(ticket));
+    }
 }
