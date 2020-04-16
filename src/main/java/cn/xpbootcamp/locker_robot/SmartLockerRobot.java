@@ -12,7 +12,7 @@ public class SmartLockerRobot extends LockerRobot {
     Comparator<Locker> comparator = Comparator.comparing(Locker::getEmptyBoxCount);
 
     @Override
-    Optional<Locker> findLocker() {
+    Optional<Locker> findTargetLocker() {
         Optional<Locker> targetLocker = lockerList.stream().max(comparator);
         return targetLocker.get().getEmptyBoxCount() == 0 ? Optional.empty() : targetLocker;
     }

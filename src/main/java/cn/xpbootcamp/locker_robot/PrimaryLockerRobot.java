@@ -9,7 +9,7 @@ public class PrimaryLockerRobot extends LockerRobot {
     }
 
     @Override
-    Optional<Locker> findLocker() {
+    Optional<Locker> findTargetLocker() {
         return lockerList.stream().filter(locker -> !locker.isFull()).findFirst();
     }
 }

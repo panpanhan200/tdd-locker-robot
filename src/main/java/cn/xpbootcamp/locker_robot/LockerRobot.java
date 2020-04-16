@@ -6,7 +6,7 @@ import java.util.Optional;
 public abstract class LockerRobot {
     protected List<Locker> lockerList;
 
-    abstract Optional<Locker> findLocker();
+    abstract Optional<Locker> findTargetLocker();
 
     public LockerRobot(List<Locker> lockerList) {
         this.lockerList = lockerList;
@@ -14,23 +14,21 @@ public abstract class LockerRobot {
 
     public Ticket deposit(Bag bag) {
 
-        Optional<Locker> notFullLocker = findLocker();
+        Optional<Locker> notFullLocker = findTargetLocker();
         if (notFullLocker.isPresent()) {
             Locker locker = notFullLocker.get();
             Ticket ticket = locker.deposit(bag);
             ticket.setLockerId(lockerList.indexOf(locker));
             return ticket;
-        } else {
-            throw new LockerUnavailableException();
         }
+        throw new LockerUnavailableException();
     }
 
     public Bag withdraw(Ticket ticket) {
 
         if (ticket.lockerId.isPresent()) {
             return lockerList.get(ticket.lockerId.get()).withdraw(ticket);
-        } else {
-            throw new TicketInvalidException();
         }
+        throw new TicketInvalidException();
     }
 }
