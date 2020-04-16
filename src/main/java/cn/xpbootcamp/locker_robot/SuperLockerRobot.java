@@ -14,6 +14,6 @@ public class SuperLockerRobot extends LockerRobot {
     @Override
     Optional<Locker> findTargetLocker() {
         Optional<Locker> targetLocker = lockerList.stream().max(comparator);
-        return targetLocker;
+        return targetLocker.get().getVacancyRate() == 0 ? Optional.empty() : targetLocker;
     }
 }

@@ -69,4 +69,24 @@ public class SuperLockerRobotTest {
         assertNotNull(ticket);
         assertTrue(lockerA.hasBag(bag));
     }
+
+    @Test
+    void should_deposit_failed_when_robot_deposits_one_bag_given_locker_A_and_B_both_with_vacancy_rate_0_percent() {
+        Locker lockerA = new Locker(1);
+        Locker lockerB = new Locker(1);
+
+        Bag bagA = new Bag();
+        lockerA.deposit(bagA);
+        Bag bagB = new Bag();
+        lockerB.deposit(bagB);
+
+        List<Locker> lockers = new ArrayList<>();
+        lockers.add(lockerA);
+        lockers.add(lockerB);
+
+        SuperLockerRobot robot = new SuperLockerRobot(lockers);
+
+        Bag bag = new Bag();
+        assertThrows(LockerUnavailableException.class, () -> robot.deposit(bag));
+    }
 }

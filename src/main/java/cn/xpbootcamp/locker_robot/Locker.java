@@ -70,7 +70,7 @@ public class Locker {
         return boxes.stream().filter(box -> !box.isOccupied()).count();
     }
 
-    public long getVacancyRate() {
-        return boxes.stream().filter(box -> !box.isOccupied()).count() / boxes.size();
+    public double getVacancyRate() {
+        return (boxes.stream().filter(box -> !box.isOccupied()).count() / (double) boxes.size());
     }
 }
